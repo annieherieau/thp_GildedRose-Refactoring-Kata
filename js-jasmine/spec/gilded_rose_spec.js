@@ -48,87 +48,87 @@ function time(days = days) {
     updatedItemsByDay.push(gildedRose.updateQuality());
   }
 }
-time(2);
+time(15);
 console.log(updatedItemsByIndex);
 /// ******* TESTS ********* ///
 
 // "Sulfuras" est un objet légendaire : sa qualité est de 80
 // sa qualité ne change jamais
 // n'a pas de date de péremption
-// describe("Sulfuras: ", function () {
-//   it("Sulfuras: qualité = 80 (new item)", function () {
-//     gildedRose.items.forEach((item) => {
-//       if (item.name.toLowerCase().includes("sulfuras")) {
-//         expect(item.quality).toEqual(80);
-//       }
-//     });
-//   });
+describe("Sulfuras: ", function () {
+  it("Sulfuras: qualité = 80 (new item)", function () {
+    gildedRose.items.forEach((item) => {
+      if (item.name.toLowerCase().includes("sulfuras")) {
+        expect(item.quality).toEqual(80);
+      }
+    });
+  });
 
-//   it("Sulfuras: qualité toujours = 80 (updated item)", () => {
-//     updatedItemsByDay.forEach((day) => {
-//       day.forEach((item) => {
-//         if (item.name.toLowerCase().includes("sulfuras")) {
-//           expect(item.quality).toEqual(80);
-//         }
-//       });
-//     });
-//   });
+  it("Sulfuras: qualité toujours = 80 (updated item)", () => {
+    updatedItemsByDay.forEach((day) => {
+      day.forEach((item) => {
+        if (item.name.toLowerCase().includes("sulfuras")) {
+          expect(item.quality).toEqual(80);
+        }
+      });
+    });
+  });
 
-//   it("Sulfuras: pas de date de péremption. sellIn = 0 (new item)", () => {
-//     gildedRose.items.forEach((item) => {
-//       if (item.name.toLowerCase().includes("sulfuras")) {
-//         expect(item.sellIn).toEqual(0);
-//       }
-//     });
-//   });
-//   it("Sulfuras: pas de date de péremption. sellIn = 0 (new item)", () => {
-//     gildedRose.items.forEach((item) => {
-//       if (item.name.toLowerCase().includes("sulfuras")) {
-//         expect(item.sellIn).toEqual(0);
-//       }
-//     });
-//   });
-// });
+  it("Sulfuras: pas de date de péremption. sellIn = 0 (new item)", () => {
+    gildedRose.items.forEach((item) => {
+      if (item.name.toLowerCase().includes("sulfuras")) {
+        expect(item.sellIn).toEqual(0);
+      }
+    });
+  });
+  it("Sulfuras: pas de date de péremption. sellIn = 0 (new item)", () => {
+    gildedRose.items.forEach((item) => {
+      if (item.name.toLowerCase().includes("sulfuras")) {
+        expect(item.sellIn).toEqual(0);
+      }
+    });
+  });
+});
 
-// // La qualité (quality) d'un produit ne peut jamais être négative.
-// describe("Qualité positive: ", () => {
-//   it("qualité toujours >=0 (new item)", () => {
-//     gildedRose.items.forEach((item) => {
-//       expect(item.quality).toBeGreaterThanOrEqual(0);
-//     });
-//   });
+// La qualité (quality) d'un produit ne peut jamais être négative.
+describe("Qualité positive: ", () => {
+  it("qualité toujours >=0 (new item)", () => {
+    gildedRose.items.forEach((item) => {
+      expect(item.quality).toBeGreaterThanOrEqual(0);
+    });
+  });
 
-//   it("qualité toujours >= 0 (updated item)", () => {
-//     updatedItemsByDay.forEach((day) => {
-//       day.forEach((item) => {
-//         {
-//           expect(item.quality).toBeGreaterThanOrEqual(0);
-//         }
-//       });
-//     });
-//   });
-// });
+  it("qualité toujours >= 0 (updated item)", () => {
+    updatedItemsByDay.forEach((day) => {
+      day.forEach((item) => {
+        {
+          expect(item.quality).toBeGreaterThanOrEqual(0);
+        }
+      });
+    });
+  });
+});
 
-// // qualité max de 50, sauf Sulfuras
-// describe("Qualité Max: ", () => {
-//   it("qualité <= 50, sauf sulfates (new items)", () => {
-//     gildedRose.items.forEach((item) => {
-//       if (!item.name.toLowerCase().includes("sulfuras")) {
-//         expect(item.quality).toBeLessThanOrEqual(50);
-//       }
-//     });
-//   });
+// qualité max de 50, sauf Sulfuras
+describe("Qualité Max: ", () => {
+  it("qualité <= 50, sauf sulfates (new items)", () => {
+    gildedRose.items.forEach((item) => {
+      if (!item.name.toLowerCase().includes("sulfuras")) {
+        expect(item.quality).toBeLessThanOrEqual(50);
+      }
+    });
+  });
 
-//   it("qualité <= 50, sauf sulfates (updated items)", () => {
-//     updatedItemsByDay.forEach((day) => {
-//       day.forEach((item) => {
-//         if (!item.name.toLowerCase().includes("sulfuras")) {
-//           expect(item.quality).toBeLessThanOrEqual(50);
-//         }
-//       });
-//     });
-//   });
-// });
+  it("qualité <= 50, sauf sulfates (updated items)", () => {
+    updatedItemsByDay.forEach((day) => {
+      day.forEach((item) => {
+        if (!item.name.toLowerCase().includes("sulfuras")) {
+          expect(item.quality).toBeLessThanOrEqual(50);
+        }
+      });
+    });
+  });
+});
 
 // chaque jour Sellin diminue de 1
 // exceptions : Sulfates (sellIn toujours = 0)
@@ -149,49 +149,49 @@ describe("Date de péremption: ", () => {
 });
 
 // // chaque jour Qualité diminue de 1
-// // Une fois que la date de péremption est passée, la qualité diminue de 2
-// // exceptions : Sulfates - Aged Brie - Backstage passes
-// describe("Qualité update: ", () => {
-//   it("diminue de 1 si sellIn >= 0", () => {
-//     items.forEach((product, index) => {
-//       if (
-//         !product.name.toLowerCase().includes("sulfuras") &&
-//         !product.name.toLowerCase().includes("aged brie") &&
-//         !product.name.toLowerCase().includes("backstage passes")
-//       ) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn >= 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 1 >= 0) {
-//               expect(item.quality).toEqual(prec.quality - 1);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+// Une fois que la date de péremption est passée, la qualité diminue de 2
+// exceptions : Sulfates - Aged Brie - Backstage passes
+describe("Qualité update: ", () => {
+  it("diminue de 1 si sellIn >= 0", () => {
+    items.forEach((product, index) => {
+      if (
+        !product.name.toLowerCase().includes("sulfuras") &&
+        !product.name.toLowerCase().includes("aged brie") &&
+        !product.name.toLowerCase().includes("backstage passes")
+      ) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn >= 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (item.quality - 1 >= 0) {
+              expect(item.quality).toEqual(prec.quality - 1);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   it("diminue de 2 si sellIn < 0", () => {
-//     items.forEach((product, index) => {
-//       if (
-//         !product.name.toLowerCase().includes("sulfuras") &&
-//         !product.name.toLowerCase().includes("aged brie") &&
-//         !product.name.toLowerCase().includes("backstage passes")
-//       ) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn < 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 2 >= 0) {
-//               expect(item.quality).toEqual(prec.quality - 2);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
-// });
+  it("diminue de 2 si sellIn < 0", () => {
+    items.forEach((product, index) => {
+      if (
+        !product.name.toLowerCase().includes("sulfuras") &&
+        !product.name.toLowerCase().includes("aged brie") &&
+        !product.name.toLowerCase().includes("backstage passes")
+      ) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn < 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (item.quality - 2 >= 0) {
+              expect(item.quality).toEqual(prec.quality - 2);
+            }
+          }
+        }
+      }
+    });
+  });
+});
 
 // // "Aged Brie" augmente sa qualité (quality) plus le temps passe.
 // describe("Aged Brie: ", () => {
@@ -297,7 +297,7 @@ describe("Date de péremption: ", () => {
 //   });
 // });
 
-// // les éléments "Conjured" voient leur qualité se dégrader de deux fois plus vite que les objets normaux.
+// les éléments "Conjured" voient leur qualité se dégrader de deux fois plus vite que les objets normaux.
 // describe("Conjured: ", () => {
 //   it("Quality diminue de 2 si sellIn >= 0", () => {
 //     items.forEach((product, index) => {
@@ -308,7 +308,7 @@ describe("Date de péremption: ", () => {
 //           let item = updatedItemsByIndex[index][i];
 //           if (i > 0 && item.sellIn >= 0) {
 //             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 1 >= 0) {
+//             if (item.quality - 2 >= 0) {
 //               expect(item.quality).toEqual(prec.quality - 2);
 //             }
 //           }
@@ -326,7 +326,7 @@ describe("Date de péremption: ", () => {
 //           let item = updatedItemsByIndex[index][i];
 //           if (i > 0 && item.sellIn < 0) {
 //             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 2 >= 0) {
+//             if (item.quality - 4 >= 0) {
 //               expect(item.quality).toEqual(prec.quality - 4);
 //             }
 //           }

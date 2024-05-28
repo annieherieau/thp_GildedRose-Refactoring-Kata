@@ -39,25 +39,22 @@ class Shop {
   }
   updateQuality() {
     this.items.forEach((item) => {
+      const qualityLose = 1;
       switch (item.name) {
         case "Sulfuras, Hand of Ragnaros":
           // aucun changement
           break;
 
         case "Aged Brie":
-         
-
           break;
 
         case "Backstage passes to a TAFKAL80ETC concert":
-         
           break;
 
         case "Conjured":
-        
+          
           break;
         default:
-      
 
           break;
       }
