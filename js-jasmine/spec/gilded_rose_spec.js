@@ -48,7 +48,7 @@ function time(days = days) {
     updatedItemsByDay.push(gildedRose.updateQuality());
   }
 }
-time(15);
+time(100);
 console.log(updatedItemsByIndex);
 /// ******* TESTS ********* ///
 
@@ -157,7 +157,8 @@ describe("Qualité update: ", () => {
       if (
         !product.name.toLowerCase().includes("sulfuras") &&
         !product.name.toLowerCase().includes("aged brie") &&
-        !product.name.toLowerCase().includes("backstage passes")
+        !product.name.toLowerCase().includes("backstage passes") &&
+        !product.name.toLowerCase().includes("conjured")
       ) {
         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
           let item = updatedItemsByIndex[index][i];
@@ -177,7 +178,8 @@ describe("Qualité update: ", () => {
       if (
         !product.name.toLowerCase().includes("sulfuras") &&
         !product.name.toLowerCase().includes("aged brie") &&
-        !product.name.toLowerCase().includes("backstage passes")
+        !product.name.toLowerCase().includes("backstage passes") &&
+        !product.name.toLowerCase().includes("conjured")
       ) {
         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
           let item = updatedItemsByIndex[index][i];
@@ -194,144 +196,144 @@ describe("Qualité update: ", () => {
 });
 
 // // "Aged Brie" augmente sa qualité (quality) plus le temps passe.
-// describe("Aged Brie: ", () => {
-//   it("augmente sa qualité + 1 si sellIn >=0", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("aged brie")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn >= 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (prec.quality + 1 <= 50) {
-//               expect(item.quality).toEqual(prec.quality + 1);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+describe("Aged Brie: ", () => {
+  it("augmente sa qualité + 1 si sellIn >=0", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("aged brie")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn >= 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (prec.quality + 1 <= 50) {
+              expect(item.quality).toEqual(prec.quality + 1);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   // Condition à vérifier
-//   it("augmente sa qualité + 2 si sellIn < 0", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("aged brie")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn < 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (prec.quality + 2 <= 50) {
-//               expect(item.quality).toEqual(prec.quality + 2);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
-// });
+  // Condition à vérifier
+  it("augmente sa qualité + 2 si sellIn < 0", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("aged brie")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn < 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (prec.quality + 2 <= 50) {
+              expect(item.quality).toEqual(prec.quality + 2);
+            }
+          }
+        }
+      }
+    });
+  });
+});
 
 // // "Backstage passes", comme le "Aged Brie", augmente sa qualité (quality) plus le temps passe (sellIn) ; La qualité augmente de 2 quand il reste 10 jours ou moins et de 3 quand il reste 5 jours ou moins, mais la qualité tombe à 0 après le concert.
-// describe("Backstage passes: ", () => {
-//   // Qualité +1 si sellin > 10
-//   it("augmente sa qualité + 1 si sellIn >= 10", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("backstage passes")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn >= 10) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (prec.quality + 1 <= 50) {
-//               expect(item.quality).toEqual(prec.quality + 1);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+describe("Backstage passes: ", () => {
+  // Qualité +1 si sellin > 10
+  it("augmente sa qualité + 1 si sellIn >= 10", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("backstage passes")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn >= 10) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (prec.quality + 1 <= 50) {
+              expect(item.quality).toEqual(prec.quality + 1);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   // qualité +2 si sellIn < 10 et >5
-//   it("augmente sa qualité + 2 si sellIn entre ]10; 5[", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("backstage passes")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn < 10 && item.sellIn > 5) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (prec.quality + 2 <= 50) {
-//               expect(item.quality).toEqual(prec.quality + 2);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+  // qualité +2 si sellIn < 10 et >5
+  it("augmente sa qualité + 2 si sellIn entre ]10; 5[", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("backstage passes")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn < 10 && item.sellIn > 5) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (prec.quality + 2 <= 50) {
+              expect(item.quality).toEqual(prec.quality + 2);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   // Qualité +3 si sellIn <= 5
-//   it("augmente sa qualité + 3 si sellIn entre [5; 0]", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("backstage passes")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn <= 5 && item.sellIn >= 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (prec.quality + 3 <= 50) {
-//               expect(item.quality).toEqual(prec.quality + 3);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+  // Qualité +3 si sellIn <= 5
+  it("augmente sa qualité + 3 si sellIn entre [5; 0]", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("backstage passes")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn <= 5 && item.sellIn >= 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (prec.quality + 3 <= 50) {
+              expect(item.quality).toEqual(prec.quality + 3);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   // Qualité = 0 si SellIn < 0
-//   it("Apres Concert : Qualité = 0 si SellIn < 0", () => {
-//     items.forEach((product, index) => {
-//       if (product.name.toLowerCase().includes("backstage passes")) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn < 0) {
-//             expect(item.quality).toEqual(0);
-//           }
-//         }
-//       }
-//     });
-//   });
-// });
+  // Qualité = 0 si SellIn < 0
+  it("Apres Concert : Qualité = 0 si SellIn < 0", () => {
+    items.forEach((product, index) => {
+      if (product.name.toLowerCase().includes("backstage passes")) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn < 0) {
+            expect(item.quality).toEqual(0);
+          }
+        }
+      }
+    });
+  });
+});
 
 // les éléments "Conjured" voient leur qualité se dégrader de deux fois plus vite que les objets normaux.
-// describe("Conjured: ", () => {
-//   it("Quality diminue de 2 si sellIn >= 0", () => {
-//     items.forEach((product, index) => {
-//       if (
-//         product.name.toLowerCase().includes("conjured")
-//       ) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn >= 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 2 >= 0) {
-//               expect(item.quality).toEqual(prec.quality - 2);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
+describe("Conjured: ", () => {
+  it("Quality diminue de 2 si sellIn >= 0", () => {
+    items.forEach((product, index) => {
+      if (
+        product.name.toLowerCase().includes("conjured")
+      ) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn >= 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (item.quality - 2 >= 0) {
+              expect(item.quality).toEqual(prec.quality - 2);
+            }
+          }
+        }
+      }
+    });
+  });
 
-//   it("Quality diminue de 4 si sellIn < 0", () => {
-//     items.forEach((product, index) => {
-//       if (
-//         product.name.toLowerCase().includes("conjured")
-//       ) {
-//         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
-//           let item = updatedItemsByIndex[index][i];
-//           if (i > 0 && item.sellIn < 0) {
-//             let prec = updatedItemsByIndex[index][i - 1];
-//             if (item.quality - 4 >= 0) {
-//               expect(item.quality).toEqual(prec.quality - 4);
-//             }
-//           }
-//         }
-//       }
-//     });
-//   });
-// });
+  it("Quality diminue de 4 si sellIn < 0", () => {
+    items.forEach((product, index) => {
+      if (
+        product.name.toLowerCase().includes("conjured")
+      ) {
+        for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
+          let item = updatedItemsByIndex[index][i];
+          if (i > 0 && item.sellIn < 0) {
+            let prec = updatedItemsByIndex[index][i - 1];
+            if (item.quality - 4 >= 0) {
+              expect(item.quality).toEqual(prec.quality - 4);
+            }
+          }
+        }
+      }
+    });
+  });
+});

@@ -10,6 +10,10 @@ class Item {
 }
 
 class Shop {
+  maxQuality = 50;
+  minQuality = 0;
+  maxSuperQuality = 80;
+
   constructor(items = []) {
     this.items = items;
     this.fixNewItems();
@@ -39,26 +43,47 @@ class Shop {
   }
   updateQuality() {
     this.items.forEach((item) => {
-      const qualityLose = 1;
+      
       switch (item.name) {
         case "Sulfuras, Hand of Ragnaros":
           // aucun changement
           break;
 
         case "Aged Brie":
+          this.updateSellIn(item);
+          item.quality += item.sellIn >= 0 ? 1 : 2;
           break;
 
         case "Backstage passes to a TAFKAL80ETC concert":
+          this.updateSellIn(item);
+          if (item.sellIn >= 10) {
+            item.quality += 1;
+          }
+          if (item.sellIn < 10 && item.sellIn > 5) {
+            item.quality += 2;
+          }
+          if (item.sellIn <= 5 && item.sellIn >= 0) {
+            item.quality += 3;
+          }
+          if (item.sellIn < 0) {
+            item.quality = 0;
+          }
           break;
 
-        case "Conjured":
-          
+        case "Conjured Mana Cake":
+          item.quality -= item.sellIn > 0 ? 2 : 4;
+          this.updateSellIn(item);
           break;
+
         default:
-
+          item.quality -= item.sellIn > 0 ? 1 : 2;
+          this.updateSellIn(item);
           break;
       }
-      this.updateSellIn(item);
+
+      this.checkMinQuality(item);
+      this.checkMaxQuality(item);
+      
     });
     return this.items;
   }
@@ -68,6 +93,22 @@ class Shop {
       item.sellIn--;
     }
   }
+
+  checkMinQuality(item) {
+    if (item.quality < this.minQuality) {
+      item.quality = this.minQuality;
+    }
+  }
+  checkMaxQuality(item) {
+    const max =
+      item.name == "Sulfuras, Hand of Ragnaros"
+        ? this.maxSuperQuality
+        : this.maxQuality;
+    if (item.quality > max) {
+      item.quality = max;
+    }
+  }
+
   updateQuality_old() {
     for (var i = 0; i < this.items.length; i++) {
       if (
