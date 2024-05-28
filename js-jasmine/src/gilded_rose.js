@@ -2,9 +2,8 @@
 class Item {
   constructor(name, sellIn, quality) {
     this.name = name;
-    // À la fin de chaque journée, notre système diminue ces deux valeurs pour chaque produit
-    this.sellIn = sellIn; // nombre de jours restant pour vendre l'article
-    this.quality = quality; // combien l'article est précieux
+    this.sellIn = sellIn; // nombre de jours restant pour vendre l'article = date de péremption
+    this.quality = quality; 
     console.log(this.name);
   }
 }
