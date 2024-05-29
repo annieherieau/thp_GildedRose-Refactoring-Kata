@@ -11,7 +11,7 @@ const items = [
   new Item("Sulfuras, Hand of Ragnaros", -1, 80), // date de péremption != O
   new Item("Sulfuras, Hand of Ragnaros", 0, 50), // qualité != 80
   new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
+  new Item("Backstage passes to a TAFKAL80ETC concert", 10, 5),
   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
 
   // This Conjured item does not work properly yet
@@ -48,7 +48,7 @@ function time(days = days) {
     updatedItemsByDay.push(gildedRose.updateQuality());
   }
 }
-time(100);
+time(20);
 console.log(updatedItemsByIndex);
 /// ******* TESTS ********* ///
 
@@ -231,7 +231,8 @@ describe("Aged Brie: ", () => {
   });
 });
 
-// // "Backstage passes", comme le "Aged Brie", augmente sa qualité (quality) plus le temps passe (sellIn) ; La qualité augmente de 2 quand il reste 10 jours ou moins et de 3 quand il reste 5 jours ou moins, mais la qualité tombe à 0 après le concert.
+// // "Backstage passes" augmente sa qualité (quality) plus le temps passe (sellIn) ;
+// La qualité augmente de 2 quand il reste 10 jours ou moins et de 3 quand il reste 5 jours ou moins, mais la qualité tombe à 0 après le concert.
 describe("Backstage passes: ", () => {
   // Qualité +1 si sellin > 10
   it("augmente sa qualité + 1 si sellIn >= 10", () => {
@@ -251,12 +252,12 @@ describe("Backstage passes: ", () => {
   });
 
   // qualité +2 si sellIn < 10 et >5
-  it("augmente sa qualité + 2 si sellIn entre ]10; 5[", () => {
+  it("augmente sa qualité + 2 si sellIn entre ]10; 5]", () => {
     items.forEach((product, index) => {
       if (product.name.toLowerCase().includes("backstage passes")) {
         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
           let item = updatedItemsByIndex[index][i];
-          if (i > 0 && item.sellIn < 10 && item.sellIn > 5) {
+          if (i > 0 && item.sellIn < 10 && item.sellIn >= 5) {
             let prec = updatedItemsByIndex[index][i - 1];
             if (prec.quality + 2 <= 50) {
               expect(item.quality).toEqual(prec.quality + 2);
@@ -268,12 +269,12 @@ describe("Backstage passes: ", () => {
   });
 
   // Qualité +3 si sellIn <= 5
-  it("augmente sa qualité + 3 si sellIn entre [5; 0]", () => {
+  it("augmente sa qualité + 3 si sellIn entre ]5; 0]", () => {
     items.forEach((product, index) => {
       if (product.name.toLowerCase().includes("backstage passes")) {
         for (let i = 0; i < updatedItemsByIndex[index].length; i++) {
           let item = updatedItemsByIndex[index][i];
-          if (i > 0 && item.sellIn <= 5 && item.sellIn >= 0) {
+          if (i > 0 && item.sellIn < 5 && item.sellIn >= 0) {
             let prec = updatedItemsByIndex[index][i - 1];
             if (prec.quality + 3 <= 50) {
               expect(item.quality).toEqual(prec.quality + 3);
